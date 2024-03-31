@@ -7,7 +7,11 @@ import Categories from './components/Categories';
 import Sort from './components/Sort';
 import PizzaBlock from './components/UI/PizzaBlock';
 
-function App() {
+import pizzas from './assets/pizzas.json';
+
+console.log(pizzas);
+
+const App: React.FC = () => {
 	return (
 		<div className='App'>
 			<div className='wrapper'>
@@ -20,21 +24,21 @@ function App() {
 						</div>
 						<h2 className='content__title'>Все пиццы</h2>
 						<div className='content__items'>
-							<PizzaBlock title='Мясные' price={500} />
-							<PizzaBlock title='Мясные' price={500} />
-							<PizzaBlock title='Мясные' price={500} />
-							<PizzaBlock title='Мясные' price={500} />
-							<PizzaBlock title='Мясные' price={500} />
-							<PizzaBlock title='Мясные' price={500} />
-							<PizzaBlock title='Мясные' price={500} />
-							<PizzaBlock title='Мясные' price={500} />
-							<PizzaBlock title='Мясные' price={500} />
+							{pizzas.map(obj => (
+								<PizzaBlock
+									title={obj.title}
+									price={obj.price}
+									image={obj.imageUrl}
+									sizes={obj.sizes}
+									types={obj.types}
+								/>
+							))}
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
-}
+};
 
 export default App;
