@@ -19,10 +19,11 @@ const Categories: React.FC = () => {
 		<div>
 			<div className='categories'>
 				<ul>
-					{categories.map((categoryName, index) => (
+					{categories.map((categoryName, i) => (
 						<li
-							onClick={() => onClickCategory(index)}
-							className={activeIndex === index ? 'active' : ''}
+							key={i}
+							onClick={() => onClickCategory(i)}
+							className={activeIndex === i ? 'active' : ''}
 						>
 							{categoryName}
 						</li>
