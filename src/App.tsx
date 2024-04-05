@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './scss/app.scss';
 
@@ -6,12 +6,26 @@ import Header from './components/Header';
 import Categories from './components/Categories';
 import Sort from './components/Sort';
 import PizzaBlock from './components/UI/PizzaBlock';
+import Skeleton from './components/UI/PizzaBlock/Skeleton';
 
-import pizzas from './assets/pizzas.json';
+//import pizzas from './assets/pizzas.json';
 
-console.log(pizzas);
+// https://660adfa5ccda4cbc75dbf990.mockapi.io/pizzas
 
 const App: React.FC = () => {
+	const [items, setItems] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	useEffect(() => {
+		fetch('https://660adfa5ccda4cbc75dbf990.mockapi.io/pizzas')
+			.then(response => {
+				return response.json();
+			})
+			.then(json => {
+				setItems(json);
+			});
+		setIsLoading(false);
+	}, []);
+
 	return (
 		<div className='App'>
 			<div className='wrapper'>
@@ -24,16 +38,9 @@ const App: React.FC = () => {
 						</div>
 						<h2 className='content__title'>Все пиццы</h2>
 						<div className='content__items'>
-							{pizzas.map(obj => (
-								<PizzaBlock 
-									key={obj.id}
-									title={obj.title}
-									price={obj.price}
-									image={obj.imageUrl}
-									sizes={obj.sizes}
-									types={obj.types}
-								/>
-							))}
+							{isLoading
+								? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+								: items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)}
 						</div>
 					</div>
 				</div>

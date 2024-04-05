@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 interface IPizzaBlock {
 	title: string;
 	price: number;
-	image: string;
+	imageUrl: string;
 	sizes: number[];
 	types: number[];
 }
@@ -11,7 +11,7 @@ interface IPizzaBlock {
 const PizzaBlock: React.FC<IPizzaBlock> = ({
 	title,
 	price,
-	image,
+	imageUrl,
 	sizes,
 	types,
 }) => {
@@ -24,7 +24,7 @@ const PizzaBlock: React.FC<IPizzaBlock> = ({
 	return (
 		<div>
 			<div className='pizza-block'>
-				<img className='pizza-block__image' src={image} alt='Pizza' />
+				<img className='pizza-block__image' src={imageUrl} alt='Pizza' />
 				<h4 className='pizza-block__title'>{title}</h4>
 				<div className='pizza-block__selector'>
 					<ul>
