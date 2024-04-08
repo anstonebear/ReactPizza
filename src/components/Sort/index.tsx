@@ -4,7 +4,7 @@ const Sort = () => {
 	const [open, setOpen] = useState(false);
 	const [selected, setSelected] = useState(0);
 
-	const sortList = ['популярности', 'цене', 'алфавиту'];
+	const sortList = ['по популярности', 'по цене', 'по алфавиту'];
 	const clickSelect = (i: number) => {
 		setSelected(i);
 		setOpen(false);
@@ -26,7 +26,7 @@ const Sort = () => {
 							fill='#2C2C2C'
 						/>
 					</svg>
-					<b>Сортировка по:</b>
+					{/* <b>Сортировка по:</b> */}
 					<span onClick={() => setOpen(!open)}>{sortList[selected]}</span>
 				</div>
 				{open && (

@@ -1,47 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import {
+	createBrowserRouter,
+	RouterProvider,
+	Route,
+	Routes,
+	Link,
+} from 'react-router-dom';
 
 import './scss/app.scss';
 
-import Header from './components/Header';
-import Categories from './components/Categories';
-import Sort from './components/Sort';
-import PizzaBlock from './components/UI/PizzaBlock';
-import Skeleton from './components/UI/PizzaBlock/Skeleton';
+import Header from './components/UI/Header';
 
-//import pizzas from './assets/pizzas.json';
-
-// https://660adfa5ccda4cbc75dbf990.mockapi.io/pizzas
+import Home from './pages/Home';
+import Cart from './pages/Cart';
+import NotFound from './pages/NotFound';
 
 const App: React.FC = () => {
-	const [items, setItems] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	useEffect(() => {
-		fetch('https://660adfa5ccda4cbc75dbf990.mockapi.io/pizzas')
-			.then(response => {
-				return response.json();
-			})
-			.then(json => {
-				setItems(json);
-			});
-		setIsLoading(false);
-	}, []);
-
 	return (
 		<div className='App'>
 			<div className='wrapper'>
 				<Header />
 				<div className='content'>
 					<div className='container'>
-						<div className='content__top'>
-							<Categories />
-							<Sort />
-						</div>
-						<h2 className='content__title'>Все пиццы</h2>
-						<div className='content__items'>
-							{isLoading
-								? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-								: items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)}
-						</div>
+						<Routes>
+							<Route path='/' element={<Home />} />
+							<Route path='/cart' element={<Cart />} />
+							<Route path='*' element={<NotFound />} />
+						</Routes>
 					</div>
 				</div>
 			</div>
