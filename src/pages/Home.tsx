@@ -8,6 +8,7 @@ import Skeleton from '../components/UI/PizzaBlock/Skeleton';
 const Home: React.FC = () => {
 	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
+
 	useEffect(() => {
 		fetch('https://660adfa5ccda4cbc75dbf990.mockapi.io/pizzas')
 			.then(response => {
