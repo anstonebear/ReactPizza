@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
+import { Sort as SortType, SortPropertyEnum } from '../../redux/filter/types';
 
-const Sort = () => {
+interface ISortInterface {
+	value: SortType;
+	onChangeSort: (idx: number) => void;
+	sortProperty: SortPropertyEnum;
+}
+
+const Sort: React.FC<ISortInterface> = ({ value, onChangeSort }) => {
 	const [open, setOpen] = useState(false);
-	const [selected, setSelected] = useState(0);
 
-	const sortList = ['по популярности', 'по цене', 'по алфавиту'];
-	const clickSelect = (i: number) => {
-		setSelected(i);
+	const sortList = [
+		{ name: 'по популярности', sortProperty: 'rating' },
+		{ name: 'по цене', sortProperty: 'price' },
+		{ name: 'по алфавиту', sortProperty: 'title' },
+	];
+
+	const clickSelect = (obj: { name: string; sortProperty: string }) => {
+		onChangeSort(obj.name === 'по популярности' ? 0 : 1);
 		setOpen(false);
 	};
 
@@ -26,19 +37,21 @@ const Sort = () => {
 							fill='#2C2C2C'
 						/>
 					</svg>
-					{/* <b>Сортировка по:</b> */}
-					<span onClick={() => setOpen(!open)}>{sortList[selected]}</span>
+					<b>Сортировка</b>
+					<span onClick={() => setOpen(!open)}>{value.name}</span>
 				</div>
 				{open && (
 					<div className='sort__popup'>
 						<ul>
-							{sortList.map((name, i) => (
+							{sortList.map((obj, i) => (
 								<li
 									key={i}
-									onClick={() => clickSelect(i)}
-									className={selected === i ? 'active' : ''}
+									onClick={() => clickSelect(obj)}
+									className={
+										value.sortProperty === obj.sortProperty ? 'active' : ''
+									}
 								>
-									{name}
+									{obj.name}
 								</li>
 							))}
 						</ul>

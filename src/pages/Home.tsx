@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId } from '../redux/filter/filterSlice';
 
 import { Categories } from '../components/Categories';
 import Sort from '../components/Sort';
@@ -16,31 +16,43 @@ const Home: React.FC = () => {
 
 	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const [sortType, setSortType] = useState({
+		name: 'популярности',
+		sortProperty: 'rating',
+	});
 
 	const onChangeCategory = (id: number) => {
 		dispatch(setCategoryId(id));
-		console.log('ONCHENGECATEGORYBLYAT', setCategoryId(id));
-		console.log('IDCATEGORY', id);
+		// console.log('ONCHENGECATEGORYBLYAT', setCategoryId(id));
+		// console.log('IDCATEGORY', id);
 	};
-	console.log('idcategory', categoryId);
-	console.log('setCategoryId', setCategoryId);
+	// console.log('idcategory', categoryId);
+	// console.log('setCategoryId', setCategoryId);
+
+	console.log('sortType', sortType);
 
 	useEffect(() => {
-		fetch('https://660adfa5ccda4cbc75dbf990.mockapi.io/pizzas')
+		setIsLoading(true);
+		fetch(
+			`https://660adfa5ccda4cbc75dbf990.mockapi.io/pizzas?${
+				categoryId > 0 ? `category=${categoryId}` : ``
+			}&sortBy=${sortType.sortProperty}&order=desc`
+		)
 			.then(response => {
 				return response.json();
 			})
-			.then(json => {
-				setItems(json);
+			.then(arr => {
+				setItems(arr);
+				setIsLoading(false);
 			});
-		setIsLoading(false);
-	}, []);
+		window.scrollTo(0, 0);
+	}, [categoryId, sortType]);
 
 	return (
 		<div>
 			<div className='content__top'>
 				<Categories value={categoryId} onChangeCategory={onChangeCategory} />
-				<Sort />
+				{/* <Sort value={sortType} onChangeSort={i => setSortType(i)} /> */}
 			</div>
 			<h2 className='content__title'>Все пиццы</h2>
 			<div className='content__items'>
