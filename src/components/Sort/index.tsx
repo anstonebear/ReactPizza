@@ -5,6 +5,7 @@ interface ISortInterface {
 	value: SortType;
 	onChangeSort: (idx: number) => void;
 	sortProperty: SortPropertyEnum;
+	name: string;
 }
 
 const Sort: React.FC<ISortInterface> = ({ value, onChangeSort }) => {
@@ -17,7 +18,7 @@ const Sort: React.FC<ISortInterface> = ({ value, onChangeSort }) => {
 	];
 
 	const clickSelect = (obj: { name: string; sortProperty: string }) => {
-		onChangeSort(obj.name === 'по популярности' ? 0 : 1);
+		onChangeSort(obj);
 		setOpen(false);
 	};
 
@@ -37,8 +38,11 @@ const Sort: React.FC<ISortInterface> = ({ value, onChangeSort }) => {
 							fill='#2C2C2C'
 						/>
 					</svg>
-					<b>Сортировка</b>
-					<span onClick={() => setOpen(!open)}>{value.name}</span>
+
+					<span onClick={() => setOpen(!open)}>
+						<b>Сортировка по:</b>
+						{value.name}
+					</span>
 				</div>
 				{open && (
 					<div className='sort__popup'>

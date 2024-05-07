@@ -7,6 +7,7 @@ import { Categories } from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/UI/PizzaBlock';
 import Skeleton from '../components/UI/PizzaBlock/Skeleton';
+import { SortPropertyEnum } from '../redux/filter/types';
 
 const Home: React.FC = () => {
 	const categoryId = useSelector((state: any) => state.filter.categoryId);
@@ -18,7 +19,7 @@ const Home: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [sortType, setSortType] = useState({
 		name: 'популярности',
-		sortProperty: 'rating',
+		sortProperty: SortPropertyEnum.RATING_DESC,
 	});
 
 	const onChangeCategory = (id: number) => {
@@ -52,9 +53,9 @@ const Home: React.FC = () => {
 		<div>
 			<div className='content__top'>
 				<Categories value={categoryId} onChangeCategory={onChangeCategory} />
-				{/* <Sort value={sortType} onChangeSort={i => setSortType(i)} /> */}
+				<Sort value={sortType} onChangeSort={i => setSortType(i)} />
 			</div>
-			<h2 className='content__title'>Все пиццы</h2>
+			{/* <h2 className='content__title'>Все пиццы</h2> */}
 			<div className='content__items'>
 				{isLoading
 					? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
