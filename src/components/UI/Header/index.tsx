@@ -3,7 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Search from '../../Search';
 
-const Header = ({ searchValue, setSearchValue }) => {
+const Header = ({
+	searchValue,
+	setSearchValue,
+}: {
+	searchValue: string;
+	setSearchValue: any;
+}) => {
 	return (
 		<div>
 			<div className='header'>

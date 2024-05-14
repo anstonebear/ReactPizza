@@ -1,7 +1,13 @@
 import React from 'react';
 
 import styles from './index.module.scss';
-const Search: React.FC = ({ searchValue, setSearchValue }) => {
+
+interface ISearchProps {
+	searchValue: string;
+	setSearchValue: (value: string) => void;
+}
+
+const Search: React.FC<ISearchProps> = ({ searchValue, setSearchValue }) => {
 	return (
 		<div className={styles.root}>
 			<input

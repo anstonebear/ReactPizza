@@ -11,38 +11,33 @@ import Pagination from '../components/Pagination';
 
 import { SortPropertyEnum } from '../redux/filter/types';
 
-const Home: React.FC = ({ searchValue, setSearchValue }) => {
-	const categoryId = useSelector((state: any) => state.filter.categoryId);
+interface IHomeProps {
+	searchValue: string;
+}
+
+const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 	const dispatch = useDispatch();
+	const categoryId = useSelector((state: any) => state.filter.categoryId);
+	const sortType = useSelector((state: any) => state.filter.sort.sortProperty);
 
 	// console.log(categoryId);
 
 	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [sortType, setSortType] = useState({
-		name: 'популярности',
-		sortProperty: SortPropertyEnum.RATING_DESC,
-	});
 
 	const onChangeCategory = (id: number) => {
 		dispatch(setCategoryId(id));
-		// console.log('ONCHENGECATEGORYBLYAT', setCategoryId(id));
-		// console.log('IDCATEGORY', id);
 	};
-	// console.log('idcategory', categoryId);
-	// console.log('setCategoryId', setCategoryId);
-
-	console.log('sortType', sortType);
 
 	useEffect(() => {
 		setIsLoading(true);
 		const search = searchValue ? `&search=${searchValue}` : '';
 
 		fetch(
-			`https://660adfa5ccda4cbc75dbf990.mockapi.io/pizzas?page=${currentPage}&limit=5&${
+			`https://660adfa5ccda4cbc75dbf990.mockapi.io/pizzas?page=${currentPage}&limit=8&${
 				categoryId > 0 ? `category=${categoryId}` : ``
-			}&sortBy=${sortType.sortProperty}&order=desc${search}`
+			}&sortBy=${sortType}&order=desc${search}`
 		)
 			.then(response => {
 				return response.json();
@@ -70,7 +65,7 @@ const Home: React.FC = ({ searchValue, setSearchValue }) => {
 		<div>
 			<div className='content__top'>
 				<Categories value={categoryId} onChangeCategory={onChangeCategory} />
-				{/* <Sort value={sortType} onChangeSort={i => setSortType(i)} /> */}
+				<Sort />
 			</div>
 			{/* <h2 className='content__title'>Все пиццы</h2> */}
 			<div className='content__items'>{isLoading ? skeletons : pizzas}</div>

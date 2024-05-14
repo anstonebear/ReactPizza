@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import { Sort as SortType, SortPropertyEnum } from '../../redux/filter/types';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSort } from '../../redux/filter/filterSlice';
 
-interface ISortInterface {
-	value: SortType;
-	onChangeSort: (idx: number) => void;
-	sortProperty: SortPropertyEnum;
-	name: string;
-}
+// interface ISortInterface {
 
-const Sort: React.FC<ISortInterface> = ({ value, onChangeSort }) => {
+// 	sortProperty: SortPropertyEnum;
+// 	name: string;
+// }
+
+const sortList = [
+	{ name: 'по популярности', sortProperty: 'rating' },
+	{ name: 'по цене', sortProperty: 'price' },
+	{ name: 'по алфавиту', sortProperty: 'title' },
+];
+
+const Sort: React.FC = () => {
+	const dispatch = useDispatch();
+	const sort = useSelector((state: any) => state.filter.sort);
+
 	const [open, setOpen] = useState(false);
 
-	const sortList = [
-		{ name: 'по популярности', sortProperty: 'rating' },
-		{ name: 'по цене', sortProperty: 'price' },
-		{ name: 'по алфавиту', sortProperty: 'title' },
-	];
-
 	const clickSelect = (obj: { name: string; sortProperty: string }) => {
-		onChangeSort(obj);
+		dispatch(setSort(obj));
 		setOpen(false);
 	};
 
@@ -41,7 +45,7 @@ const Sort: React.FC<ISortInterface> = ({ value, onChangeSort }) => {
 
 					<span onClick={() => setOpen(!open)}>
 						<b>Сортировка по:</b>
-						{value.name}
+						{sort.name}
 					</span>
 				</div>
 				{open && (
@@ -52,7 +56,7 @@ const Sort: React.FC<ISortInterface> = ({ value, onChangeSort }) => {
 									key={i}
 									onClick={() => clickSelect(obj)}
 									className={
-										value.sortProperty === obj.sortProperty ? 'active' : ''
+										sort.sortProperty === obj.sortProperty ? 'active' : ''
 									}
 								>
 									{obj.name}
