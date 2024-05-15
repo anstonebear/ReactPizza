@@ -9,7 +9,7 @@ import { setSort } from '../../redux/filter/filterSlice';
 // 	name: string;
 // }
 
-const sortList = [
+export const sortList = [
 	{ name: 'по популярности', sortProperty: 'rating' },
 	{ name: 'по цене', sortProperty: 'price' },
 	{ name: 'по алфавиту', sortProperty: 'title' },
