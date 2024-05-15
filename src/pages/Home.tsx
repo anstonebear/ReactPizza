@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import qs from 'qs';
@@ -26,6 +26,8 @@ interface IHomeProps {
 const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const isSearch = useRef(false);
+	const isMounted = useRef(false);
 	const categoryId = useSelector((state: any) => state.filter.categoryId);
 	const sortType = useSelector((state: any) => state.filter.sort.sortProperty);
 	const currentPage = useSelector((state: any) => state.filter.currentPage);
@@ -43,26 +45,7 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 		dispatch(setCategoryId(id));
 	};
 
-	useEffect(() => {
-		if (window.location.search) {
-			const params = qs.parse(window.location.search.substring(1));
-			const sort = sortList.find(
-				obj => obj.sortProperty === params?.sortProperty
-			); // Add a conditional check here
-
-			if (params && sort) {
-				// Add a conditional check here
-				dispatch(
-					setFilters({
-						...params,
-						sort,
-					})
-				);
-			}
-		}
-	});
-
-	useEffect(() => {
+	const fetchPizzas = () => {
 		setIsLoading(true);
 		const search = searchValue ? `&search=${searchValue}` : '';
 
@@ -78,16 +61,46 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 			});
 
 		window.scrollTo(0, 0);
+	};
+
+	useEffect(() => {
+		if (window.location.search) {
+			const params = qs.parse(window.location.search.substring(1));
+			const sort = sortList.find(
+				obj => obj.sortProperty === params?.sortProperty
+			); // Add a conditional check here
+
+			if (params && sort) {
+				// Add a conditional check here
+				dispatch(
+					setFilters({
+						...params,
+						sort,
+					})
+				);
+				isSearch.current = true;
+			}
+		}
+	});
+
+	useEffect(() => {
+		if (!isSearch.current) {
+			fetchPizzas();
+		}
+		isSearch.current = false;
 	}, [categoryId, sortType, searchValue, currentPage]);
 
 	useEffect(() => {
-		const queryString = qs.stringify({
-			sortProperty: sortType.sortProperty,
-			categoryId,
-			currentPage,
-		});
-		console.log(queryString);
-		navigate(`?${queryString}`);
+		if (isMounted.current) {
+			const queryString = qs.stringify({
+				sortProperty: sortType.sortProperty,
+				categoryId,
+				currentPage,
+			});
+			console.log(queryString);
+			navigate(`?${queryString}`);
+		}
+		isMounted.current = true;
 	}, [categoryId, sortType, searchValue, currentPage]);
 
 	const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
