@@ -22,7 +22,12 @@ const App: React.FC = () => {
 	return (
 		<div className='App'>
 			<div className='wrapper'>
-				<Header searchValue={searchValue} setSearchValue={setSearchValue} />
+				<Header
+					searchValue={searchValue}
+					setSearchValue={setSearchValue}
+					items={0}
+					totalPrice={0}
+				/>
 				<div className='content'>
 					<div className='container'>
 						<Routes>
