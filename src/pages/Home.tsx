@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
+
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ import PizzaBlock from '../components/UI/PizzaBlock';
 import Skeleton from '../components/UI/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { sortList } from '../components/Sort';
-import { setItems } from '../redux/pizza/pizzaSlice';
+import { setItems, fetchPizzas } from '../redux/pizza/pizzaSlice';
 
 import { SortPropertyEnum } from '../redux/filter/types';
 
@@ -32,12 +32,11 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 	const categoryId = useSelector((state: any) => state.filter.categoryId);
 	const sortType = useSelector((state: any) => state.filter.sort.sortProperty);
 	const currentPage = useSelector((state: any) => state.filter.currentPage);
-	const items = useSelector((state: any) => state.pizza.items);
+	const { items, status } = useSelector((state: any) => state.pizza);
 
 	// console.log(categoryId);
 
 	//const [items, setItems] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
 
 	const onChangeCurrentPage = (i: number) => {
 		dispatch(setCurrentPage(i));
@@ -47,23 +46,10 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 		dispatch(setCategoryId(id));
 	};
 
-	const fetchPizzas = async () => {
-		setIsLoading(true);
+	const getPizzas = async () => {
 		const search = searchValue ? `&search=${searchValue}` : '';
 
-		try {
-			const { data } = await axios.get(
-				`https://660adfa5ccda4cbc75dbf990.mockapi.io/pizzas?page=${currentPage}&limit=8&${
-					categoryId > 0 ? `category=${categoryId}` : ``
-				}&sortBy=${sortType}&order=desc${search}`
-			);
-			dispatch(setItems(data));
-			setIsLoading(false);
-		} catch (error) {
-			setIsLoading(false);
-			alert('Ошибка при получении данных');
-			console.error('error', error);
-		}
+		await dispatch(fetchPizzas({ currentPage, categoryId, sortType, search }));
 
 		window.scrollTo(0, 0);
 	};
@@ -90,7 +76,7 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 
 	useEffect(() => {
 		if (!isSearch.current) {
-			fetchPizzas();
+			getPizzas();
 		}
 		isSearch.current = false;
 	}, [categoryId, sortType, searchValue, currentPage]);
@@ -120,7 +106,21 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 				<Sort />
 			</div>
 			{/* <h2 className='content__title'>Все пиццы</h2> */}
-			<div className='content__items'>{isLoading ? skeletons : pizzas}</div>
+			<div className='content__items'>
+				{status === 'error' ? (
+					<div className='content__error-info'>
+						<h2>Произошла ошибка 😕</h2>
+						<p>
+							К сожалению, не удалось получить питсы. Попробуйте повторить
+							попытку позже.
+						</p>
+					</div>
+				) : (
+					<div className='content__items'>
+						{status === 'loading' ? skeletons : pizzas}
+					</div>
+				)}
+			</div>
 
 			<Pagination onChangePage={(num: number) => onChangeCurrentPage(num)} />
 		</div>
