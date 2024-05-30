@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addItem } from '../../../redux/cart/cartSlice';
+import { addItem, selectCartItem } from '../../../redux/cart/cartSlice';
 
 interface IPizzaBlock {
-	id: string;
+	id: number;
 	title: string;
 	price: number;
 	imageUrl: string;
@@ -25,11 +25,8 @@ const PizzaBlock: React.FC<IPizzaBlock> = ({
 	types,
 }) => {
 	const dispatch = useDispatch();
-	const cartItem = useSelector((state: any) =>
-		state.cart.items.find((obj: any) => obj.id === id)
-	);
+	const cartItem = useSelector(selectCartItem(id));
 	//const cartItem = useSelector(selectCartItemById(id));
-	const [pizzaCount, setPizzaCount] = useState(0);
 
 	const [activeType, setActiveType] = useState(0);
 	const [activeSize, setActiveSize] = useState(0);

@@ -5,6 +5,7 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
 import {
+	selectFilter,
 	setCategoryId,
 	setCurrentPage,
 	setFilters,
@@ -16,7 +17,11 @@ import PizzaBlock from '../components/UI/PizzaBlock';
 import Skeleton from '../components/UI/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { sortList } from '../components/Sort';
-import { setItems, fetchPizzas } from '../redux/pizza/pizzaSlice';
+import {
+	setItems,
+	fetchPizzas,
+	selectPizzaData,
+} from '../redux/pizza/pizzaSlice';
 
 import { SortPropertyEnum } from '../redux/filter/types';
 
@@ -32,7 +37,7 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 	const categoryId = useSelector((state: any) => state.filter.categoryId);
 	const sortType = useSelector((state: any) => state.filter.sort.sortProperty);
 	const currentPage = useSelector((state: any) => state.filter.currentPage);
-	const { items, status } = useSelector((state: any) => state.pizza);
+	const { items, status } = useSelector(selectPizzaData);
 
 	// console.log(categoryId);
 
