@@ -54,7 +54,14 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 	const getPizzas = async () => {
 		const search = searchValue ? `&search=${searchValue}` : '';
 
-		await dispatch(fetchPizzas({ currentPage, categoryId, sortType, search }));
+		await dispatch(
+			fetchPizzas({
+				currentPage,
+				categoryId,
+				sortType,
+				search,
+			}) as unknown as any
+		);
 
 		window.scrollTo(0, 0);
 	};
