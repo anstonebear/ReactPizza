@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import qs from 'qs';
@@ -47,9 +47,9 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 		dispatch(setCurrentPage(i));
 	};
 
-	const onChangeCategory = (id: number) => {
+	const onChangeCategory = useCallback((id: number) => {
 		dispatch(setCategoryId(id));
-	};
+	}, []);
 
 	const getPizzas = async () => {
 		const search = searchValue ? `&search=${searchValue}` : '';

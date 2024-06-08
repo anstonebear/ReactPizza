@@ -2,7 +2,7 @@ import React from 'react';
 
 type CategoriesProps = {
 	value: number;
-	onChangeCategory: (idx: number) => void;
+	onChangeCategory: (i: number) => void;
 };
 
 const categories = [

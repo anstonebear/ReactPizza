@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -23,6 +23,15 @@ const Header: React.FC<IHeaderInterface> = ({
 		(sum: number, item: any) => sum + item.count,
 		0
 	);
+	const isMounted = useRef(false);
+
+	useEffect(() => {
+		if (isMounted.current) {
+			const json = JSON.stringify(items);
+			localStorage.setItem('cart', json);
+		}
+		isMounted.current = true;
+	}, [items, totalPrice]);
 	return (
 		<div>
 			<div className='header'>
