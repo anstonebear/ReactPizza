@@ -1,61 +1,66 @@
 {
-  "name": "pizzaza",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@mui/material": "^5.15.16",
-    "@reduxjs/toolkit": "^2.2.3",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.89",
-    "@types/qs": "^6.9.15",
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
-    "@types/react-redux": "^7.1.33",
-    "axios": "^1.6.8",
-    "lodash": "^4.17.21",
-    "lodash.debounce": "^4.0.8",
-    "react": "^18.2.0",
-    "react-content-loader": "^7.0.0",
-    "react-dom": "^18.2.0",
-    "react-paginate": "^8.2.0",
-    "react-redux": "^9.1.0",
-    "react-router-dom": "^6.22.3",
-    "react-scripts": "5.0.1",
-    "sass": "^1.74.1",
-    "scss": "^0.2.4",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@types/lodash.debounce": "^4.0.9"
-  }
+	"name": "pizzaza",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@emotion/react": "^11.11.4",
+		"@emotion/styled": "^11.11.5",
+		"@mui/material": "^5.15.16",
+		"@reduxjs/toolkit": "^2.2.3",
+		"@testing-library/jest-dom": "^5.17.0",
+		"@testing-library/user-event": "^13.5.0",
+		"@types/jest": "^27.5.2",
+		"@types/node": "^16.18.89",
+		"@types/qs": "^6.9.15",
+		"@types/react": "^18.2.66",
+		"@types/react-dom": "^18.2.22",
+		"@types/react-redux": "^7.1.33",
+		"axios": "^1.6.8",
+		"lodash": "^4.17.21",
+		"lodash.debounce": "^4.0.8",
+		"react": "^18.2.0",
+		"react-content-loader": "^7.0.0",
+		"react-dom": "^18.2.0",
+		"react-paginate": "^8.2.0",
+		"react-redux": "^9.1.0",
+		"react-router-dom": "^6.22.3",
+		"react-scripts": "5.0.1",
+		"react-testing-library": "^8.0.1",
+		"sass": "^1.74.1",
+		"scss": "^0.2.4",
+		"typescript": "^4.9.5",
+		"web-vitals": "^2.1.4"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@testing-library/react": "^16.0.0",
+		"@types/lodash.debounce": "^4.0.9",
+		"jest": "^27.5.1",
+		"jest-environment-jsdom": "^29.7.0",
+		"react-test-renderer": "^18.3.1"
+	}
 }

@@ -11,7 +11,7 @@ export const CartEmpty: React.FC = () => (
 		<p>
 			Вероятней всего, вы не заказывали ещё пиццу.
 			<br />
-			Для того, чтобы заказать пиццу, перейди на главную страницу.
+			Для того, чтобы заказать пиццу, перейдите на главную страницу.
 		</p>
 		<img src={cartEmptyImg} alt='Empty cart' />
 		<Link to='/' className='button button--black'>

@@ -4,11 +4,10 @@ import styles from './index.module.scss';
 import debounce from 'lodash.debounce';
 
 interface ISearchProps {
-	searchValue: string;
 	setSearchValue: (value: string) => void;
 }
 
-const Search: React.FC<ISearchProps> = ({ setSearchValue, searchValue }) => {
+export const Search: React.FC<ISearchProps> = ({ setSearchValue }) => {
 	const [value, setValue] = useState('');
 
 	const updateSearchValue = useCallback(

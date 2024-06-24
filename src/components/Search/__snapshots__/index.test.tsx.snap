@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search Search 1`] = `
+<input
+  class="input"
+  placeholder="Поиск пиццы..."
+  type="search"
+  value=""
+/>
+`;
