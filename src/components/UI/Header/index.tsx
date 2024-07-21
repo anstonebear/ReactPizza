@@ -45,7 +45,7 @@ const Header: React.FC<IHeaderInterface> = ({
 							</div>
 						</div>
 					</Link>
-					<Search searchValue={searchValue} setSearchValue={setSearchValue} />
+					<Search setSearchValue={setSearchValue} />
 					{location.pathname !== '/cart' && (
 						<Link to='/cart'>
 							<div className='header__cart'>

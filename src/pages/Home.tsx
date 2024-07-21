@@ -71,10 +71,9 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 			const params = qs.parse(window.location.search.substring(1));
 			const sort = sortList.find(
 				obj => obj.sortProperty === params?.sortProperty
-			); // Add a conditional check here
+			);
 
 			if (params && sort) {
-				// Add a conditional check here
 				dispatch(
 					setFilters({
 						...params,
@@ -117,7 +116,7 @@ const Home: React.FC<IHomeProps> = ({ searchValue }) => {
 				<Categories value={categoryId} onChangeCategory={onChangeCategory} />
 				<Sort />
 			</div>
-			{/* <h2 className='content__title'>Все пиццы</h2> */}
+
 			<div className='content__items'>
 				{status === 'error' ? (
 					<div className='content__error-info'>
