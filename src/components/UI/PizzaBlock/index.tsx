@@ -47,7 +47,8 @@ const PizzaBlock: React.FC<IPizzaBlock> = ({
 		};
 		dispatch(addItem(item));
 
-		sendMetriks('reachGoal', 'item');
+		sendMetriks({ id, type: 'reachGoal', value: 'addItem' });
+		console.log(sendMetriks);
 	};
 
 	return (
