@@ -23,7 +23,7 @@ import {
 	selectPizzaData,
 } from '../redux/pizza/pizzaSlice';
 
-import { SortPropertyEnum } from '../redux/filter/types';
+// import { SortPropertyEnum } from '../redux/filter/types';
 
 interface IHomeProps {
 	searchValue: string;

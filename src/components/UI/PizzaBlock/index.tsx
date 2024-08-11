@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { addItem, selectCartItem } from '../../../redux/cart/cartSlice';
 
+import { sendMetriks } from '../../../utils/metriks';
+
 interface IPizzaBlock {
 	id: number;
 	title: string;
@@ -44,6 +46,8 @@ const PizzaBlock: React.FC<IPizzaBlock> = ({
 			count: 0,
 		};
 		dispatch(addItem(item));
+
+		sendMetriks('reachGoal', 'item');
 	};
 
 	return (
