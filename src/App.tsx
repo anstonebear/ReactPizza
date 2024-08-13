@@ -15,6 +15,7 @@ import FullPizza from './pages/FullPizza';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import NotFound from './pages/NotFound';
+import ChartsPage from './pages/ChartsPage';
 
 const App: React.FC = () => {
 	const [searchValue, setSearchValue] = React.useState('');
@@ -35,6 +36,7 @@ const App: React.FC = () => {
 							<Route path='/cart' element={<Cart />} />
 							<Route path='/pizza/:id' element={<FullPizza />} />
 							<Route path='*' element={<NotFound />} />
+							<Route path='/charts' element={<ChartsPage />} />
 						</Routes>
 					</div>
 				</div>
